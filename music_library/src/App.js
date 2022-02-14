@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import SongList from './Components/Song_List/SongList';
+import SongList from './Components/SongTable/SongTable';
+import TitleBar from './Components/TitleBar/TitleBar';
+import SearchBar from './Components/SearchBar/SearchBar';
 
 function App() {
 
@@ -22,7 +24,8 @@ function App() {
   
   return (
     <div>
-      <h1>List of songs</h1>
+      <TitleBar />
+      <SearchBar />
       <SongList  songs={songs}/>
     </div>
   );
