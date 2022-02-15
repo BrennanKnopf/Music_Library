@@ -1,13 +1,12 @@
 import React from 'react';
 
-const SongList = (props) => {
+const SongTable = (props) => {
 
     // console.log(props.songs);
 
     // let mappedSongs = props.songs.map(song => {
     //     return <li>{song.title} </li>
     // })
-    
     
         return ( 
             <div>
@@ -23,7 +22,7 @@ const SongList = (props) => {
                         </tr>
                     </thead>
                     <tbody>
-                        {props.songs.map((song) => {
+                        {props.filteredResults.map((song) => { //maps b
                             return(
                                 <tr>
                                 <td>{song.title}</td>
@@ -40,4 +39,4 @@ const SongList = (props) => {
          );
     }
      
-    export default SongList;
+    export default SongTable;

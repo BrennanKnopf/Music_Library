@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import SongList from './Components/SongTable/SongTable';
+import SongTable from './Components/SongTable/SongTable';
 import TitleBar from './Components/TitleBar/TitleBar';
 import SearchBar from './Components/SearchBar/SearchBar';
+import './App.css'
 
 function App() {
 
   const [songs, setSongs] = useState([]);
+  const [filteredSongs, setFilteredSongs] = useState([]); //used as the state variable to hold the filtered results 
 
   useEffect(() => {
     getAllSongs();
@@ -15,14 +17,15 @@ function App() {
   async function getAllSongs(){
     let response = await axios.get('http://www.devcodecampmusiclibrary.com/api/music');
     setSongs(response.data);
+    setFilteredSongs(response.data);
     }
   console.log(songs);
 
   function filterSearch(searchTerm){
 
-    const [filteredResults, setFilteredResults] = useState([])
-    filteredResults = songs.filter(song => {
-      if (song.artist === searchTerm || song.title === searchTerm || song.album === searchTerm || song.genre === searchTerm || song.releaseDate === searchTerm){
+    let filteredResults = songs.filter(song => {
+      searchTerm = searchTerm.toLowerCase()
+      if (song.artist.toLowerCase().includes(searchTerm)|| song.title.toLowerCase().includes(searchTerm) || song.album.toLowerCase().includes(searchTerm) || song.genre.toLowerCase().includes(searchTerm) || song.releaseDate.toLowerCase().includes(searchTerm)){
         return true;
       }
       else{
@@ -30,18 +33,18 @@ function App() {
       }
       
     })
-    return setFilteredResults(filteredResults);
+    setFilteredSongs(filteredResults);
     
   }
   
-
+ 
  
   
   return (
-    <div>
+    <div className='mainbody'>
       <TitleBar />
-      <SearchBar filterSearch={filterSearch}/>
-      <SongList  songs={songs} filteredResults={filteredResults}/>
+      <SearchBar filterSearch={filterSearch} getAllSongs={getAllSongs}/>
+      <SongTable  songs={songs} filteredResults={filteredSongs}/>
     </div>
   );
 }
