@@ -16,8 +16,23 @@ function App() {
     let response = await axios.get('http://www.devcodecampmusiclibrary.com/api/music');
     setSongs(response.data);
     }
-  console.log(songs)
-  
+  console.log(songs);
+
+  function filterSearch(searchTerm){
+
+    const [filteredResults, setFilteredResults] = useState([])
+    filteredResults = songs.filter(song => {
+      if (song.artist === searchTerm || song.title === searchTerm || song.album === searchTerm || song.genre === searchTerm || song.releaseDate === searchTerm){
+        return true;
+      }
+      else{
+        return false;
+      }
+      
+    })
+    return setFilteredResults(filteredResults);
+    
+  }
   
 
  
@@ -25,8 +40,8 @@ function App() {
   return (
     <div>
       <TitleBar />
-      <SearchBar />
-      <SongList  songs={songs}/>
+      <SearchBar filterSearch={filterSearch}/>
+      <SongList  songs={songs} filteredResults={filteredResults}/>
     </div>
   );
 }
