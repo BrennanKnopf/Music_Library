@@ -39,7 +39,7 @@ const UpdateSongs = (props) => {
         setRelease_date('');
     }
     
-    
+
     useEffect(() => {
         setId(props.songToUpdate.id)
       }, [props]);
@@ -67,7 +67,7 @@ const UpdateSongs = (props) => {
         <Form.Text>Album</Form.Text>
         <Form.Control input="post" type='text' name="genre" value={genre} onChange={(event) => setGenre(event.target.value)} size='lg' /> 
         <Form.Text>Genre</Form.Text>
-        <Form.Control input="post" type='text' name="release_date" value={release_date} onChange={(event) => setRelease_date(event.target.value)} size='lg' />
+        <Form.Control input="post" type='date' name="release_date" value={release_date} onChange={(event) => setRelease_date(event.target.value)} size='lg' />
         <Form.Text>Release Date</Form.Text>
         </Form.Group>
         <Button type='submit' onClick={refreshPage} >Submit Update</Button>
