@@ -20,8 +20,9 @@ function App() {
     let response = await axios.get('http://127.0.0.1:8000/music/');
     setSongs(response.data);
     setFilteredSongs(response.data);
+    //console.log(songs);
     }
-  console.log(songs);
+  
 
   function filterSearch(searchTerm){
 
@@ -53,7 +54,7 @@ function App() {
     if(response.status === 204){
       await getAllSongs();
     }
-    console.log(id);
+    // console.log(id);
   }
   // const [updatedSong, setUpdatedSong] = useState()
   // async function updateSong(id, updatedSong){

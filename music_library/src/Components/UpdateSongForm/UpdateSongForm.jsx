@@ -1,7 +1,8 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Container from 'react-bootstrap/esm/Container';
 import Form from 'react-bootstrap/Form';
 import axios from 'axios';
+import Button from 'react-bootstrap/Button'
 
 const UpdateSongs = (props) => {
     
@@ -10,7 +11,7 @@ const UpdateSongs = (props) => {
     const [album, setAlbum] = useState(props.songToUpdate.album)
     const [genre, setGenre] = useState(props.songToUpdate.genre)
     const [release_date, setRelease_date] = useState(props.songToUpdate.release_date)
-
+    const [id, setId] = useState(props.songToUpdate.id)
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -23,26 +24,35 @@ const UpdateSongs = (props) => {
 
         };
         console.log(updatedSong);
-        props.updateSong(updatedSong);
+        updateSong(updatedSong);
         setTitle('');
         setArtist('');
         setAlbum('');
         setGenre('');
         setRelease_date('');
     }
+    // function handleClick(){
+
+    // }
+    useEffect(() => {
+        setId(props.songToUpdate.id)
+      }, [props]);
     
-    async function updateSong(id, updatedSong){
-        let response = await axios.put(`http://127.0.0.1:8000/music/${id}/`)
+    async function updateSong(updatedSong){
+        let response = await axios.put(`http://127.0.0.1:8000/music/${id}/`, updatedSong)
         if(response.data === 201){
             await props.getAllSongs();
         }
         console.log(response)
-    } 
+    }
+    const refreshPage = ()=>{
+        window.location.reload();
+     }
     return (
         <Container>
         <Form id="songForm" onSubmit={handleSubmit}>
         <Form.Group className="col-sm-offset-8 col-sm-4">
-            <Form.Label>Update Song:</Form.Label>
+        <Form.Label>Update Song:</Form.Label>
         <Form.Control input="post" type='text' name="title" value={title} onChange={(event) => setTitle(event.target.value)} size='lg' />
         <Form.Text>Title</Form.Text>
         <Form.Control input="post" type='text' name="artist" value={artist} onChange={(event) => setArtist(event.target.value)} size='lg' />
@@ -54,6 +64,7 @@ const UpdateSongs = (props) => {
         <Form.Control input="post" type='text' name="release_date" value={release_date} onChange={(event) => setRelease_date(event.target.value)} size='lg' />
         <Form.Text>Release Date</Form.Text>
         </Form.Group>
+        <Button type='submit' onClick={refreshPage} >Submit Update</Button>
         </Form>
     </Container>
   
