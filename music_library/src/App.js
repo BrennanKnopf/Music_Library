@@ -25,10 +25,11 @@ function App() {
   
 
   function filterSearch(searchTerm){
+    console.log(searchTerm)
 
     let filteredResults = songs.filter(song => {
       searchTerm = searchTerm.toLowerCase()
-      if (song.artist.toLowerCase().includes(searchTerm)|| song.title.toLowerCase().includes(searchTerm) || song.album.toLowerCase().includes(searchTerm) || song.genre.toLowerCase().includes(searchTerm) || song.releaseDate.toLowerCase().includes(searchTerm)){
+      if (song.artist.toLowerCase().includes(searchTerm)|| song.title.toLowerCase().includes(searchTerm) || song.album.toLowerCase().includes(searchTerm) || song.genre.toLowerCase().includes(searchTerm) || song.release_date.toLowerCase().includes(searchTerm)){
         return true;
       }
       else{
@@ -37,6 +38,7 @@ function App() {
       
     })
     setFilteredSongs(filteredResults);
+  
     
   }
   async function createSong(newSong){
@@ -64,15 +66,19 @@ function App() {
   //   }
   //   console.log(response)
   // }
-  const [songToUpdate, setSongToUpdate] = useState({})
   
+  
+  const [songToUpdate, setSongToUpdate] = useState({})
+  const [active, setActive] = useState(false)
+  
+
   return (
     <div className='mainbody'>
       <TitleBar />
       <SearchBar filterSearch={filterSearch} getAllSongs={getAllSongs}/>
       <SongForm addNewSongProperty= {createSong} />
-      <UpdateSongForm getAllSongs={getAllSongs} songToUpdate={songToUpdate}/>
-      <SongTable  songs={songs} filteredResults={filteredSongs} deleteSong={deleteSong} setSongToUpdate={setSongToUpdate} />
+      {active && <UpdateSongForm getAllSongs={getAllSongs} songToUpdate={songToUpdate} />}
+      <SongTable  songs={songs} filteredResults={filteredSongs} deleteSong={deleteSong} setSongToUpdate={setSongToUpdate} active={setActive} />
     </div>
   );
 }

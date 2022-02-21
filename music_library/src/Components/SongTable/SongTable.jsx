@@ -1,8 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Table from 'react-bootstrap/Table';
 
 const SongTable = (props) => {
-
+    
+    const handleClick = (songToUpdate) =>{
+        props.setSongToUpdate(songToUpdate);
+        props.active(true);
+    }
+    
     return(
     <Table striped bordered hover variant="dark">
         <thead>
@@ -13,6 +18,7 @@ const SongTable = (props) => {
                 <th>Artist</th>
                 <th>Genre</th>
                 <th>Release Date</th>
+                <th>Delete or Update</th>
                 </tr>
         </thead>
         <tbody>
@@ -25,7 +31,7 @@ const SongTable = (props) => {
                     <td>{song.genre}</td>
                     <td>{song.release_date}</td>
                     <button className="btn btn-danger" onClick={() => props.deleteSong(song.id)}>Delete Song</button>
-                    <button className="btn btn-success" onClick={() => props.setSongToUpdate(song)}>Update Song</button>
+                    <button className="btn btn-success" onClick={() => handleClick(song)}>Update Song</button>
                 </tr>
             )}
             )}

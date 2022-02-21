@@ -6,6 +6,13 @@ import Button from 'react-bootstrap/Button'
 
 const UpdateSongs = (props) => {
     
+    // const preloadedValues = {
+    //     title: props.songToUpdate.title,
+    //     artist: props.songToUpdate.artist,
+    //     album: props.songToUpdate.album,
+    //     genre: props.songToUpdate.genre,
+    //     release_date: props.songToUpdate.release_date
+    // };
     const [title, setTitle] = useState(props.songToUpdate.title)
     const [artist, setArtist] = useState(props.songToUpdate.artist)
     const [album, setAlbum] = useState(props.songToUpdate.album)
@@ -31,9 +38,8 @@ const UpdateSongs = (props) => {
         setGenre('');
         setRelease_date('');
     }
-    // function handleClick(){
-
-    // }
+    
+    
     useEffect(() => {
         setId(props.songToUpdate.id)
       }, [props]);
